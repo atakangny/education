@@ -3,6 +3,7 @@ package com.atakanguney.education.api;
 import com.atakanguney.education.dto.CourseDTO;
 import com.atakanguney.education.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,23 +15,23 @@ public class CourseApi {
     CourseService courseService;
 
     @GetMapping(value = "/course/all")
-    public List<CourseDTO> getAllCourses() {
-        return courseService.getAllCourses();
+    public ResponseEntity<List<CourseDTO>> getAllCourses() {
+        return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @PostMapping("/course/")
-    public CourseDTO addCourse(@RequestBody CourseDTO course) {
-        return courseService.addCourse(course);
+    public ResponseEntity<CourseDTO> addCourse(@RequestBody CourseDTO course) {
+        return ResponseEntity.ok(courseService.addCourse(course));
     }
 
     @GetMapping("/course/{id}")
-    public CourseDTO getCourseById(@PathVariable Long id) {
-        return courseService.getCourseById(id);
+    public ResponseEntity<CourseDTO> getCourseById(@PathVariable Long id) {
+        return ResponseEntity.ok(courseService.getCourseById(id));
     }
 
     @PutMapping("/course/{id}")
-    public CourseDTO updateCourse(@PathVariable Long id, @RequestBody CourseDTO updatedCourse) {
-        return courseService.updateCourse(id, updatedCourse);
+    public ResponseEntity<CourseDTO> updateCourse(@PathVariable Long id, @RequestBody CourseDTO updatedCourse) {
+        return ResponseEntity.ok(courseService.updateCourse(id, updatedCourse));
     }
 
     @DeleteMapping("/course/{id}")

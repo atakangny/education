@@ -4,5 +4,6 @@
 ## 2. How to Run
 - Just Run EducationApplication.java
 ## 3. TODO
-- Login/Authorization
-- 
+- JWT Authentication
+- Swagger
+- Profiles

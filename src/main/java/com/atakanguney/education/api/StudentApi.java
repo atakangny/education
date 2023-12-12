@@ -3,6 +3,7 @@ package com.atakanguney.education.api;
 import com.atakanguney.education.dto.StudentDTO;
 import com.atakanguney.education.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,23 +15,23 @@ public class StudentApi {
     StudentService studentService;
 
     @GetMapping("student/all")
-    public List<StudentDTO> getAllStudents() {
-        return studentService.getAllStudents();
+    public ResponseEntity<List<StudentDTO>> getAllStudents() {
+        return ResponseEntity.ok(studentService.getAllStudents());
     }
 
     @PostMapping(path = "student/")
-    public StudentDTO addStudent(@RequestBody StudentDTO student) {
-        return studentService.addStudent(student);
+    public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO student) {
+        return ResponseEntity.ok(studentService.addStudent(student));
     }
 
     @GetMapping("student/{id}")
-    public StudentDTO getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    public ResponseEntity<StudentDTO> getStudentById(@PathVariable Long id) {
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
     @PutMapping("student/{id}")
-    public StudentDTO updateStudent(@PathVariable Long id, @RequestBody StudentDTO updatedStudent) {
-        return studentService.updateStudent(id, updatedStudent);
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id, @RequestBody StudentDTO updatedStudent) {
+        return ResponseEntity.ok(studentService.updateStudent(id, updatedStudent));
     }
 
     @DeleteMapping("student/{id}")

@@ -34,8 +34,10 @@ public class CourseService {
         if (existingCourseOptional.isEmpty()) {
             throw new EntityNotFoundException("Course not found");
         }
+        CourseEntity existingCourse = existingCourseOptional.get();
 
-        CourseEntity existingCourse = modelMapper.map(courseDTO, CourseEntity.class);
+        CourseEntity updatedCourse = modelMapper.map(courseDTO, CourseEntity.class);
+        existingCourse.setProperties(updatedCourse);
         return courseRepository.save(existingCourse).toDto();
     }
 

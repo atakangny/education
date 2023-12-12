@@ -14,6 +14,7 @@ import java.util.List;
 public class StudentEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -38,5 +39,12 @@ public class StudentEntity {
                 .email(this.email)
                 .address(this.address)
                 .build();
+    }
+
+    public void setProperties(StudentEntity updateStudent) {
+        this.address = updateStudent.getAddress();
+        this.name = updateStudent.getName();
+        this.email = updateStudent.getEmail();
+        this.phone = updateStudent.getPhone();
     }
 }

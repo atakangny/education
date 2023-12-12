@@ -12,6 +12,7 @@ import lombok.Setter;
 public class CourseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String code;
@@ -24,4 +25,8 @@ public class CourseEntity {
                 .build();
     }
 
+    public void setProperties(CourseEntity updatedCourse) {
+        this.code = updatedCourse.getCode();
+        this.name = updatedCourse.getName();
+    }
 }

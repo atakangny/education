@@ -1,7 +1,9 @@
 package com.atakanguney.education.service;
 
 import com.atakanguney.education.dto.StudentDTO;
+import com.atakanguney.education.entity.CourseEntity;
 import com.atakanguney.education.entity.StudentEntity;
+import com.atakanguney.education.repository.CourseRepository;
 import com.atakanguney.education.repository.StudentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -17,6 +19,8 @@ public class StudentService {
 
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private CourseRepository courseRepository;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -50,9 +54,11 @@ public class StudentService {
         if (existingCourseOptional.isEmpty()) {
             throw new EntityNotFoundException("Student not found");
         }
+        StudentEntity existingStudent =  existingCourseOptional.get();
 
-        StudentEntity existingCourse = modelMapper.map(studentDTO, StudentEntity.class);
-        return studentRepository.save(existingCourse).toDto();
+        StudentEntity updateStudent = modelMapper.map(studentDTO, StudentEntity.class);
+        existingStudent.setProperties(updateStudent);
+        return studentRepository.save(existingStudent).toDto();
     }
 
     public void deleteStudent(Long id) {
@@ -64,6 +70,10 @@ public class StudentService {
     }
 
     public void allocateCourse(Long studentId, Long courseId) {
+        StudentEntity student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Non-existing student can not allocate"));
+        CourseEntity course = courseRepository.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Non-existing course can not be allocated"));
 
+        student.getCourses().add(course);
+        studentRepository.save(student);
     }
 }
