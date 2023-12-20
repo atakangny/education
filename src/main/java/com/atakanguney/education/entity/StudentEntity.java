@@ -26,10 +26,10 @@ public class StudentEntity {
     private String address;
 
     @ManyToMany
-    @JoinTable(name = "student_course",
+    @JoinTable(name = "enrollment",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
-    private List<CourseEntity> courses;
+    private List<CourseEntity> enrollments;
 
     public StudentDTO toDto(){
         return StudentDTO.builder()

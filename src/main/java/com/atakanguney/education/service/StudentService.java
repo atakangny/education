@@ -73,7 +73,7 @@ public class StudentService {
         StudentEntity student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Non-existing student can not allocate"));
         CourseEntity course = courseRepository.findById(courseId).orElseThrow(() -> new EntityNotFoundException("Non-existing course can not be allocated"));
 
-        student.getCourses().add(course);
+        student.getEnrollments().add(course);
         studentRepository.save(student);
     }
 }
