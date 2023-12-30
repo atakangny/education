@@ -3,8 +3,11 @@ package com.atakanguney.education.auth;
 import com.atakanguney.education.entity.UserEntity;
 import com.atakanguney.education.enums.AccountStatus;
 import com.atakanguney.education.enums.Role;
+import com.atakanguney.education.exception.BusinessException;
+import com.atakanguney.education.exception.enums.AuthenticationExceptions;
 import com.atakanguney.education.repository.UserRepository;
 import com.atakanguney.education.service.JwtService;
+import com.atakanguney.education.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,6 +34,14 @@ public class AuthenticationService {
                 .isExpired(false)
                 .isLocked(false)
                 .build();
+
+        if (!ValidationUtil.isValidEmail(user.getEmail())) {
+            throw new BusinessException(AuthenticationExceptions.INVALID_EMAIL);
+        }
+        if (!ValidationUtil.isValidPassword(request.getPassword())) {
+            throw new BusinessException(AuthenticationExceptions.INVALID_PASSWORD);
+        }
+
         UserEntity savedUser = userRepository.save(user);
 
         // Use generated id in code

@@ -8,8 +8,9 @@
 - JWT Authentication
 - Swagger
 - H2 Database
-## 4. TODO
+## 4. In-Progress
+- Error Handling (Error response not delivered)
+## 5. TODO
 - Profiles
 - Token refresh
-- Error Handling
 - Business Logic
